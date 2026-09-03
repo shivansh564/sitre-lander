@@ -1,1693 +1,426 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#F4F0E7">
-
-  <title>new heights — sitre</title>
-  <meta
-    name="description"
-    content="New Heights by Sitre. A sculptural self-care object crafted with genuine smoky quartz. join the waitlist for early access."
-  >
-
-  <style>
-    /* ==========================================================
-       SITRE — NEW HEIGHTS PRE-LAUNCH
-       Responsive standalone page
-       Mobile-first, image-ready, no image assets included yet.
-       ========================================================== */
-
-    :root {
-      --bg: #f4f0e7;
-      --bg-soft: #f8f5ee;
-      --paper: #fbf9f4;
-      --ink: #171713;
-      --muted: #69645a;
-      --olive: #8e8a45;
-      --olive-dark: #626027;
-      --line: rgba(23, 23, 19, .13);
-
-      /* When rendered inside Sitre's theme, these inherit the live theme fonts. */
-      --display-font: var(--font-heading-family, "Times New Roman", Times, serif);
-      --body-font: var(--font-body-family, Arial, Helvetica, sans-serif);
-
-      --page-x: 20px;
-      --section-y: 64px;
-      --radius: 0px;
-      --ease: cubic-bezier(.22,.7,.2,1);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      background: var(--bg);
-      overflow-x: hidden;
-    }
-
-    body {
-      margin: 0;
-      min-width: 320px;
-      overflow-x: hidden;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--body-font);
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-
-    body.no-scroll {
-      overflow: hidden;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    button,
-    a {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    a {
-      color: inherit;
-    }
-
-    .display {
-      font-family: var(--display-font);
-      font-weight: 400;
-      letter-spacing: -.035em;
-    }
-
-    .eyebrow {
-      margin: 0 0 14px;
-      color: #77723b;
-      font-size: 8px;
-      font-weight: 650;
-      letter-spacing: .12em;
-      text-transform: none;
-    }
-
-    .body-copy {
-      color: #454139;
-      font-size: 14px;
-      line-height: 1.65;
-    }
-
-    .page-shell {
-      width: min(100%, 1600px);
-      margin: 0 auto;
-    }
-
-    /* ==========================================================
-       HEADER
-       ========================================================== */
-
-    .site-header {
-      position: absolute;
-      inset: 0 0 auto;
-      z-index: 30;
-      height: 66px;
-      padding:
-        env(safe-area-inset-top)
-        var(--page-x)
-        0;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      pointer-events: none;
-    }
-
-    .brand,
-    .waitlist-link {
-      pointer-events: auto;
-    }
-
-    .brand {
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 550;
-      letter-spacing: .12em;
-    }
-
-    .waitlist-link {
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      border: 0;
-      padding: 0;
-      background: transparent;
-      color: inherit;
-      cursor: pointer;
-
-      font-size: 8px;
-      font-weight: 650;
-      letter-spacing: .11em;
-      text-transform: none;
-    }
-
-    .waitlist-link span {
-      padding-bottom: 4px;
-      border-bottom: 1px solid currentColor;
-    }
-
-    /* ==========================================================
-       IMAGE / MEDIA PLACEHOLDERS
-       Swap backgrounds for final images later.
-       ========================================================== */
-
-    .media {
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 64% 38%, rgba(118,118,55,.44), transparent 28%),
-        radial-gradient(circle at 42% 64%, rgba(85,88,43,.34), transparent 38%),
-        linear-gradient(145deg, #dad4c3, #f2eee5 48%, #b5b08a);
-      isolation: isolate;
-    }
-
-    .media::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.06));
-      pointer-events: none;
-    }
-
-    .media--dark {
-      background:
-        radial-gradient(circle at 55% 48%, rgba(156,151,81,.42), transparent 23%),
-        radial-gradient(circle at 40% 55%, rgba(93,93,49,.30), transparent 42%),
-        linear-gradient(135deg, #181c12, #34351f 50%, #11140e);
-    }
-
-    .media--warm {
-      background:
-        radial-gradient(circle at 66% 42%, rgba(157,123,70,.35), transparent 26%),
-        radial-gradient(circle at 38% 63%, rgba(91,72,44,.34), transparent 38%),
-        linear-gradient(145deg, #252218, #6f6045 57%, #c4ad88);
-    }
-
-    .media__ghost {
-      position: absolute;
-      width: 57%;
-      aspect-ratio: 0.73;
-      right: -5%;
-      bottom: -10%;
-      border-radius: 47% 48% 40% 45% / 52% 46% 54% 42%;
-      background:
-        radial-gradient(circle at 65% 18%, rgba(73,68,27,.9) 0 5%, transparent 7%),
-        radial-gradient(circle at 45% 54%, rgba(91,96,42,.88), rgba(193,190,142,.52) 47%, rgba(246,242,231,.78) 70%);
-      filter: blur(1px);
-      opacity: .95;
-      transform: rotate(6deg);
-      box-shadow: inset 0 0 40px rgba(255,255,255,.35);
-    }
-
-    /* ==========================================================
-       HERO — MOBILE FIRST
-       ========================================================== */
-
-    .hero {
-      position: relative;
-      min-height: 100svh;
-      display: grid;
-      grid-template-rows: minmax(390px, 54svh) minmax(330px, 46svh);
-      background: var(--bg);
-      overflow: clip;
-    }
-
-    .hero__copy {
-      position: relative;
-      z-index: 3;
-      padding:
-        calc(92px + env(safe-area-inset-top))
-        var(--page-x)
-        42px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: flex-start;
-    }
-
-    .hero h1 {
-      margin: 0;
-      max-width: 10ch;
-      font-size: clamp(52px, 15.5vw, 76px);
-      line-height: .94;
-    }
-
-    .hero__sub {
-      margin: 18px 0 0;
-      max-width: 26ch;
-      font-family: var(--display-font);
-      font-size: 18px;
-      line-height: 1.34;
-      color: #35332d;
-    }
-
-    .hero__media {
-      min-height: 0;
-      border-top: 1px solid rgba(23,23,19,.05);
-    }
-
-    .hero__media .media__ghost {
-      width: 64%;
-      right: 8%;
-      bottom: -16%;
-    }
-
-    .button {
-      min-height: 52px;
-      width: 100%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-
-      margin-top: 28px;
-      padding: 13px 24px;
-      border: 0;
-
-      background: var(--olive);
-      color: #fffdf7;
-
-      cursor: pointer;
-      text-transform: none;
-      letter-spacing: .09em;
-      font-size: 9px;
-      font-weight: 700;
-      transition:
-        background .25s ease,
-        transform .25s ease;
-    }
-
-    .button:hover {
-      background: var(--olive-dark);
-    }
-
-    .button:active {
-      transform: scale(.985);
-    }
-
-    /* ==========================================================
-       FOUNDER QUOTE
-       ========================================================== */
-
-    .quote {
-      min-height: 250px;
-      padding: 58px 24px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      background: var(--paper);
-    }
-
-    .quote blockquote {
-      margin: 0;
-      max-width: 760px;
-      font-family: var(--display-font);
-      font-style: italic;
-      font-size: 24px;
-      line-height: 1.28;
-      color: #77723b;
-    }
-
-    .quote cite {
-      display: block;
-      margin-top: 22px;
-      font-style: normal;
-      font-size: 8px;
-      letter-spacing: .12em;
-      text-transform: none;
-      color: var(--ink);
-    }
-
-    /* ==========================================================
-       STORY SECTIONS
-       Mobile: image first, copy second.
-       ========================================================== */
-
-    .story {
-      display: grid;
-      grid-template-columns: 1fr;
-      background: var(--bg-soft);
-    }
-
-    .story__media {
-      min-height: 96vw;
-      max-height: 680px;
-    }
-
-    .story__copy {
-      padding: 54px var(--page-x) 64px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .story h2 {
-      margin: 0 0 23px;
-      max-width: 12ch;
-      font-size: 42px;
-      line-height: 1.01;
-    }
-
-    .story p {
-      max-width: 38em;
-      margin: 0;
-      color: #454139;
-      font-size: 14px;
-      line-height: 1.68;
-    }
-
-    .story__signoff {
-      margin-top: 25px !important;
-      font-family: var(--display-font);
-      font-size: 18px !important;
-      line-height: 1.38 !important;
-      color: #34322c !important;
-    }
-
-    /* On mobile always keep image first, regardless of desktop alternation. */
-    .story--reverse .story__media {
-      order: 1;
-    }
-
-    .story--reverse .story__copy {
-      order: 2;
-    }
-
-    /* ==========================================================
-       FORM POINTS
-       ========================================================== */
-
-    .form-points {
-      margin-top: 38px;
-      display: grid;
-      gap: 23px;
-      max-width: 660px;
-    }
-
-    .form-point {
-      display: grid;
-      grid-template-columns: 44px 1fr;
-      column-gap: 14px;
-      align-items: start;
-    }
-
-    .form-point__icon {
-      grid-row: 1 / 3;
-      width: 42px;
-      height: 25px;
-      color: #77723b;
-    }
-
-    .form-point__icon svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    .form-point strong {
-      display: block;
-      margin: 0 0 7px;
-      font-size: 8px;
-      letter-spacing: .10em;
-      text-transform: none;
-    }
-
-    .form-point span {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    /* ==========================================================
-       MANIFESTO
-       ========================================================== */
-
-    .manifesto {
-      min-height: 160px;
-      padding: 42px 22px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      background:
-        linear-gradient(90deg,#efeae0,#f8f4ec,#efeae0);
-    }
-
-    .manifesto p {
-      margin: 0;
-      font-family: var(--display-font);
-      font-style: italic;
-      font-size: 25px;
-      line-height: 1.28;
-      color: #77723b;
-    }
-
-    /* ==========================================================
-       PRE-LAUNCH REVEAL
-       ========================================================== */
-
-    .reveal {
-      display: grid;
-      grid-template-columns: 1fr;
-      background: var(--paper);
-    }
-
-    .reveal__media {
-      min-height: 94vw;
-      max-height: 680px;
-    }
-
-    .reveal__copy {
-      padding: 56px var(--page-x) 66px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .reveal h2 {
-      margin: 0 0 22px;
-      font-size: 44px;
-      line-height: 1;
-    }
-
-    .reveal__intro {
-      margin: 0 0 31px;
-      font-family: var(--display-font);
-      font-size: 17px;
-      line-height: 1.5;
-    }
-
-    .benefits {
-      display: grid;
-      gap: 15px;
-    }
-
-    .benefit {
-      display: grid;
-      grid-template-columns: 22px 1fr;
-      align-items: center;
-      gap: 12px;
-
-      font-size: 12px;
-      line-height: 1.42;
-    }
-
-    .benefit svg {
-      width: 20px;
-      height: 20px;
-      fill: none;
-      stroke: #77723b;
-      stroke-width: 1.25;
-    }
-
-    .reveal .button {
-      margin-top: 34px;
-    }
-
-    .small-note {
-      margin-top: 11px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 10px;
-    }
-
-    /* ==========================================================
-       SITRE RITUAL
-       ========================================================== */
-
-    .ritual {
-      width: calc(100% - 28px);
-      margin: 28px auto;
-      padding: 32px 24px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 25px;
-      background: rgba(255,255,255,.36);
-    }
-
-    .ritual h3 {
-      margin: 0 0 10px;
-      font-family: var(--display-font);
-      font-weight: 400;
-      font-size: 30px;
-      letter-spacing: -.025em;
-    }
-
-    .ritual p {
-      max-width: 360px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .ritual__media {
-      min-height: 140px;
-      max-height: 220px;
-    }
-
-    .ritual__link {
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      gap: 16px;
-      justify-self: start;
-
-      text-decoration: none;
-      font-size: 8px;
-      font-weight: 650;
-      letter-spacing: .11em;
-      text-transform: none;
-    }
-
-    /* ==========================================================
-       DETAILS
-       Mobile = single-column accordions.
-       ========================================================== */
-
-    .details {
-      padding: 24px var(--page-x) 64px;
-    }
-
-    .details h3 {
-      margin: 0 0 28px;
-      text-align: center;
-      font-family: var(--display-font);
-      font-weight: 400;
-      font-size: 34px;
-    }
-
-    .details__grid {
-      width: min(100%, 1100px);
-      margin: auto;
-      display: grid;
-      grid-template-columns: 1fr;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    details + details {
-      border-top: 1px solid var(--line);
-    }
-
-    summary {
-      min-height: 68px;
-      padding: 0 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      list-style: none;
-      cursor: pointer;
-      font-family: var(--display-font);
-      font-size: 16px;
-    }
-
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .plus {
-      position: relative;
-      flex: 0 0 13px;
-      width: 13px;
-      height: 13px;
-    }
-
-    .plus::before,
-    .plus::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      background: currentColor;
-      transform: translate(-50%, -50%);
-    }
-
-    .plus::before {
-      width: 12px;
-      height: 1px;
-    }
-
-    .plus::after {
-      width: 1px;
-      height: 12px;
-      transition: transform .2s ease;
-    }
-
-    details[open] .plus::after {
-      transform: translate(-50%, -50%) rotate(90deg);
-    }
-
-    .details__content {
-      padding: 0 8px 25px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.65;
-    }
-
-    /* ==========================================================
-       WAITLIST
-       ========================================================== */
-
-    .waitlist {
-      padding:
-        88px
-        var(--page-x)
-        calc(104px + env(safe-area-inset-bottom));
-
-      background:
-        radial-gradient(circle at 84% 18%, rgba(145,141,69,.34), transparent 31%),
-        #222418;
-
-      color: #f6f2e8;
-      text-align: center;
-    }
-
-    .waitlist__inner {
-      width: min(100%, 760px);
-      margin: auto;
-    }
-
-    .waitlist .eyebrow {
-      color: #c0ba73;
-    }
-
-    .waitlist h2 {
-      margin: 0 0 22px;
-      font-size: 48px;
-      line-height: 1.02;
-    }
-
-    .waitlist p {
-      width: min(100%, 500px);
-      margin: 0 auto 34px;
-      color: rgba(246,242,232,.72);
-      font-size: 14px;
-      line-height: 1.62;
-    }
-
-    .signup {
-      width: min(100%, 620px);
-      margin: auto;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-
-    .signup input {
-      min-width: 0;
-      min-height: 54px;
-      padding: 0 16px;
-
-      border: 1px solid rgba(255,255,255,.28);
-      border-radius: 0;
-
-      background: rgba(255,255,255,.035);
-      color: #fff;
-      outline: none;
-      font-size: 16px; /* prevents iOS zoom */
-    }
-
-    .signup input::placeholder {
-      color: rgba(255,255,255,.5);
-    }
-
-    .signup input:focus {
-      border-color: rgba(255,255,255,.74);
-    }
-
-    .signup button {
-      min-height: 54px;
-      border: 0;
-      padding: 0 24px;
-
-      background: #979249;
-      color: #fff;
-
-      cursor: pointer;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .09em;
-      text-transform: none;
-    }
-
-    .form-message {
-      min-height: 20px;
-      margin-top: 14px;
-      font-size: 12px;
-    }
-
-    /* ==========================================================
-       MOBILE STICKY CTA
-       Appears after hero.
-       ========================================================== */
-
-    .mobile-cta {
-      position: fixed;
-      z-index: 50;
-      left: 0;
-      right: 0;
-      bottom: 0;
-
-      padding:
-        10px
-        12px
-        calc(10px + env(safe-area-inset-bottom));
-
-      background: rgba(247,243,235,.94);
-      border-top: 1px solid rgba(23,23,19,.09);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-
-      transform: translateY(120%);
-      transition: transform .35s var(--ease);
-    }
-
-    .mobile-cta.is-visible {
-      transform: translateY(0);
-    }
-
-    .mobile-cta button {
-      width: 100%;
-      min-height: 50px;
-      border: 0;
-      background: var(--olive);
-      color: #fff;
-
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: .09em;
-      text-transform: none;
-      cursor: pointer;
-    }
-
-    /* ==========================================================
-       FOOTER
-       ========================================================== */
-
-    footer {
-      min-height: 150px;
-      padding:
-        35px
-        var(--page-x)
-        calc(92px + env(safe-area-inset-bottom));
-
-      display: grid;
-      grid-template-columns: 1fr;
-      justify-items: center;
-      gap: 23px;
-
-      background: #f7f3eb;
-      border-top: 1px solid rgba(0,0,0,.07);
-    }
-
-    footer nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 24px;
-    }
-
-    footer nav a {
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-
-      text-decoration: none;
-      font-size: 8px;
-      letter-spacing: .10em;
-      text-transform: none;
-    }
-
-    footer small {
-      color: var(--muted);
-      font-size: 8px;
-    }
-
-    /* ==========================================================
-       ENTRANCE ANIMATIONS
-       ========================================================== */
-
-    [data-reveal] {
-      opacity: 0;
-      transform: translateY(14px);
-      transition:
-        opacity .68s ease,
-        transform .68s ease;
-    }
-
-    [data-reveal].is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      [data-reveal] {
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-      }
-
-      .mobile-cta {
-        transition: none;
-      }
-    }
-
-    /* ==========================================================
-       SMALL MOBILE
-       ========================================================== */
-
-    @media (max-width: 374px) {
-      :root {
-        --page-x: 17px;
-      }
-
-      .hero h1 {
-        font-size: 49px;
-      }
-
-      .hero__sub {
-        font-size: 17px;
-      }
-
-      .story h2,
-      .reveal h2 {
-        font-size: 39px;
-      }
-
-      .waitlist h2 {
-        font-size: 43px;
-      }
-    }
-
-    /* ==========================================================
-       LARGE MOBILE / SMALL TABLET
-       ========================================================== */
-
-    @media (min-width: 681px) {
-      :root {
-        --page-x: clamp(32px, 6vw, 58px);
-      }
-
-      .site-header {
-        height: 76px;
-      }
-
-      .brand {
-        font-size: 14px;
-      }
-
-      .hero {
-        min-height: 820px;
-        grid-template-rows: 1fr;
-        grid-template-columns: .92fr 1.08fr;
-      }
-
-      .hero__copy {
-        padding:
-          140px
-          var(--page-x)
-          80px;
-        justify-content: center;
-      }
-
-      .hero h1 {
-        max-width: 8ch;
-        font-size: clamp(70px, 9vw, 96px);
-      }
-
-      .hero__sub {
-        font-size: 21px;
-      }
-
-      .hero .button {
-        width: auto;
-        min-width: 205px;
-      }
-
-      .hero__media {
-        min-height: 820px;
-        border-top: 0;
-      }
-
-      .hero__media .media__ghost {
-        width: 72%;
-        right: -7%;
-        bottom: -5%;
-      }
-
-      .quote {
-        min-height: 285px;
-      }
-
-      .quote blockquote {
-        font-size: clamp(28px, 4vw, 36px);
-      }
-
-      .story__media,
-      .reveal__media {
-        min-height: 58vw;
-      }
-
-      .story__copy,
-      .reveal__copy {
-        padding: 72px var(--page-x);
-      }
-
-      .story h2 {
-        font-size: clamp(50px, 7vw, 62px);
-      }
-
-      .form-points {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-      }
-
-      .form-point {
-        display: block;
-      }
-
-      .form-point__icon {
-        margin-bottom: 10px;
-      }
-
-      .reveal h2 {
-        font-size: 58px;
-      }
-
-      .reveal .button {
-        width: auto;
-        max-width: 500px;
-      }
-
-      .small-note {
-        width: fit-content;
-        max-width: 500px;
-      }
-
-      .ritual {
-        width: min(92%, 1200px);
-        grid-template-columns: 1fr .7fr;
-        padding: 38px 42px;
-        gap: 35px;
-      }
-
-      .ritual__link {
-        grid-column: 1 / -1;
-      }
-
-      .details {
-        padding-top: 32px;
-      }
-
-      .signup {
-        grid-template-columns: 1fr auto;
-      }
-
-      footer {
-        min-height: 110px;
-        padding: 26px var(--page-x);
-        grid-template-columns: 1fr auto 1fr;
-        justify-items: initial;
-        align-items: center;
-      }
-
-      footer small {
-        justify-self: end;
-      }
-
-      .mobile-cta {
-        display: none;
-      }
-    }
-
-    /* ==========================================================
-       DESKTOP
-       ========================================================== */
-
-    @media (min-width: 1024px) {
-      :root {
-        --page-x: clamp(58px, 5.4vw, 94px);
-      }
-
-      .hero {
-        min-height: min(820px, 94vh);
-      }
-
-      .hero__copy {
-        padding-top: 150px;
-      }
-
-      .hero h1 {
-        font-size: clamp(82px, 7.2vw, 118px);
-      }
-
-      .hero__sub {
-        font-size: clamp(21px, 1.65vw, 27px);
-      }
-
-      .quote {
-        min-height: 310px;
-      }
-
-      .story {
-        grid-template-columns: 1fr 1fr;
-        min-height: 620px;
-      }
-
-      .story__media {
-        min-height: 620px;
-        max-height: none;
-      }
-
-      .story__copy {
-        padding:
-          clamp(72px, 7.5vw, 128px)
-          clamp(54px, 7.2vw, 124px);
-      }
-
-      .story h2 {
-        font-size: clamp(52px, 4.25vw, 70px);
-      }
-
-      .story--reverse .story__copy {
-        order: 1;
-      }
-
-      .story--reverse .story__media {
-        order: 2;
-      }
-
-      .manifesto {
-        min-height: 190px;
-      }
-
-      .manifesto p {
-        font-size: clamp(28px, 2.45vw, 39px);
-      }
-
-      .reveal {
-        grid-template-columns: 1fr 1.1fr;
-        min-height: 650px;
-      }
-
-      .reveal__media {
-        min-height: 650px;
-        max-height: none;
-      }
-
-      .reveal__copy {
-        padding:
-          clamp(70px, 7vw, 118px)
-          clamp(54px, 7.8vw, 132px);
-      }
-
-      .reveal h2 {
-        font-size: clamp(56px, 4.5vw, 74px);
-      }
-
-      .ritual {
-        grid-template-columns: 1fr .74fr .56fr;
-        gap: 42px;
-        padding: 38px 50px;
-      }
-
-      .ritual__link {
-        grid-column: auto;
-        justify-self: end;
-      }
-
-      .details__grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      details + details {
-        border-top: 0;
-        border-left: 1px solid var(--line);
-      }
-
-      summary {
-        padding: 0 26px;
-      }
-
-      .details__content {
-        padding-inline: 26px;
-      }
-
-      .waitlist {
-        padding:
-          clamp(100px, 9vw, 145px)
-          var(--page-x);
-      }
-
-      .waitlist h2 {
-        font-size: clamp(58px, 5vw, 80px);
-      }
-    }
-
-    /* ==========================================================
-       WIDE DESKTOP
-       ========================================================== */
-
-    @media (min-width: 1440px) {
-      .hero {
-        min-height: 860px;
-      }
-
-      .hero__media {
-        min-height: 860px;
-      }
-
-      .story,
-      .reveal {
-        min-height: 700px;
-      }
-
-      .story__media,
-      .reveal__media {
-        min-height: 700px;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>new heights — sitre</title>
+<meta name="description" content="new heights is designed to elevate pleasure in more than one way. a sculpted silicone form, a real smoky quartz crystal, and a deep, rumbly vibration.">
+<meta name="robots" content="noindex, nofollow">
+
+<meta property="og:type" content="product">
+<meta property="og:title" content="new heights — sitre">
+<meta property="og:description" content="designed to elevate pleasure in more than one way.">
+<meta property="og:image" content="https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Test_Desktop.png?v=1788340661&width=1200&format=jpg">
+<meta property="og:url" content="https://shopsitre.com/products/new-heights">
+
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://cdn.shopify.com/s/files/1/0500/6255/7337/files/SuisseWorks-Book.woff?v=1713792469">
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="https://cdn.shopify.com/s/files/1/0500/6255/7337/files/NHaasGroteskDSPro-55Rg.woff?v=1713792469">
+<link rel="preload" as="image" fetchpriority="high"
+      href="https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Test_Desktop.png?v=1788340661&width=1672&format=jpg"
+      imagesrcset="https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Test_Desktop.png?v=1788340661&width=1672&format=jpg 1672w, https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Test_Desktop.png?v=1788340661&width=2400&format=jpg 2400w"
+      media="(min-width: 700px)">
+<link rel="preload" as="image" fetchpriority="high"
+      href="https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Test_Mobile.png?v=1788430900&width=1122&format=jpg"
+      imagesrcset="https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Test_Mobile.png?v=1788430900&width=750&format=jpg 750w, https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Test_Mobile.png?v=1788430900&width=1122&format=jpg 1122w"
+      media="(max-width: 699px)">
+
+<style>
+/* ------------------------------------------------------------------
+   sitre — new heights landing page
+   Fonts, imagery and copy are pulled from the live Shopify catalogue.
+   Brand tokens per clients/shopsitre/brand/brand-guidelines.md
+------------------------------------------------------------------ */
+
+/* The two brand faces. Both are served with a .woff extension but the
+   bytes are WOFF2 (magic `wOF2`), so the format hint says woff2. */
+@font-face{
+  font-family:"Suisse Works";
+  src:url("https://cdn.shopify.com/s/files/1/0500/6255/7337/files/SuisseWorks-Book.woff?v=1713792469") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Neue Haas Grotesk DS";
+  src:url("https://cdn.shopify.com/s/files/1/0500/6255/7337/files/NHaasGroteskDSPro-55Rg.woff?v=1713792469") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+
+:root{
+  --cream:#f6f4f1;          /* brand body background */
+  --card:#ece7dd;           /* warm card ground, one step down from cream */
+  --ink:#000;               /* brand body text */
+  --ink-soft:#4a4740;
+  --olive:#8a803c;          /* brand accent — decoration only, 3.66:1 on cream */
+  --olive-ink:#556021;      /* olive for TEXT and CTA grounds — 6.21:1 on cream */
+  --rule:rgba(0,0,0,.14);
+
+  --serif:"Suisse Works",Georgia,"Times New Roman",serif;
+  --sans:"Neue Haas Grotesk DS","Helvetica Neue",Arial,sans-serif;
+
+  --gutter:clamp(20px,5vw,72px);
+  --bar-h:78px;             /* mobile sticky buy bar */
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--cream); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.6;
+  font-weight:400; /* only one weight exists — never synthesise bold */
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--olive-ink);outline-offset:3px;border-radius:2px}
+
+/* Emphasis comes from size, colour and tracking — the brand faces ship
+   in a single weight each, so any `font-weight:600` would be faux bold. */
+h1,h2,h3,.serif{font-family:var(--serif);font-weight:400;line-height:1.02;letter-spacing:-.015em}
+
+.wrap{max-width:1440px;margin-inline:auto;padding-inline:var(--gutter)}
+
+/* ---------------- header ---------------- */
+.site-head{
+  position:absolute;inset:0 0 auto;z-index:5;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:20px;padding:clamp(18px,2.6vw,32px) var(--gutter);
+  /* Matches .wrap so the wordmark lines up with the hero copy past 1440px. */
+  max-width:1440px;margin-inline:auto;
+}
+.wordmark{font-family:var(--serif);font-size:clamp(26px,3.2vw,40px);line-height:1;letter-spacing:-.01em}
+.head-link{
+  font-size:14px;letter-spacing:.01em;
+  border-bottom:1px solid var(--ink);padding-bottom:3px;
+  transition:border-color .25s,color .25s;
+}
+.head-link:hover{color:var(--olive-ink);border-color:var(--olive-ink)}
+
+/* ---------------- hero ---------------- */
+.hero{position:relative;isolation:isolate;display:flex;align-items:center;overflow:hidden}
+.hero-img{position:absolute;inset:0;z-index:-2;overflow:hidden}
+/* Absolute, so the stacked mobile/tablet slots size purely from their
+   aspect-ratio instead of being pushed open by the image's own height. */
+.hero-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* The renders are clean CG gradients. Shopify's CDN auto-negotiates WebP,
+   whose smoothing flattens the source dither into visible plateaus, so a
+   fine grain is laid back over the top to keep the gradient reading smooth. */
+.hero-img::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* Softens the join where the image meets the cream page in the stacked
+   mobile layout; the render's own background is a good deal warmer than
+   --cream, so a hard edge would show. Desktop is full-bleed and needs none. */
+.hero-img::before{content:none}
+
+.hero-copy{position:relative;width:100%;padding-block:clamp(92px,13vh,124px) clamp(34px,5vh,52px)}
+.eyebrow{
+  display:inline-block;font-size:15px;color:var(--olive-ink);
+  border-bottom:1px solid var(--olive);padding-bottom:4px;margin-bottom:clamp(16px,2.4vh,22px);
+}
+.hero h1{
+  font-size:clamp(58px,8.4vw,112px);
+  letter-spacing:-.025em;margin-bottom:clamp(14px,2vh,22px);
+}
+.lead{font-size:clamp(17px,1.35vw,20px);line-height:1.5;max-width:23ch;color:var(--ink)}
+
+/* ---------------- feature triplet ---------------- */
+.features{
+  list-style:none;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(14px,2vw,28px);
+  margin-block:clamp(24px,4vh,40px);
+}
+.feature h2{font-family:var(--sans);font-size:14px;line-height:1.3;letter-spacing:.005em;margin-bottom:6px}
+.feature p{font-size:13.5px;line-height:1.45;color:var(--ink-soft)}
+
+/* Supplied as 1254px PNGs in three different greens. Masking them recolours
+   all three to one brand olive and drops ~480KB of unused resolution.
+   Each PNG carries a different amount of transparent padding (the vibration
+   mark is 79%x33% of its canvas, the quartz 39%x62%), so a single square box
+   plus `contain` lets each mark keep its own proportions off a shared frame. */
+.f-ico{
+  height:58px;width:58px;margin-bottom:12px;background-color:var(--olive);
+  -webkit-mask:var(--src) left center/contain no-repeat;
+          mask:var(--src) left center/contain no-repeat;
+}
+
+/* ---------------- price + cta ---------------- */
+.buy{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,2.2vh,22px);max-width:420px}
+.price{font-family:var(--serif);font-size:clamp(32px,3.4vw,44px);line-height:1}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:14px;
+  width:100%;min-height:58px;padding:0 30px;
+  background:var(--olive-ink);color:var(--cream);
+  font-size:16px;letter-spacing:.005em;border:0;border-radius:2px;cursor:pointer;
+  transition:background-color .25s;
+}
+.btn:hover{background:#41491a}
+.btn .arw{transition:transform .25s}
+.btn:hover .arw{transform:translateX(5px)}
+
+/* ---------------- ritual section ---------------- */
+.ritual{padding-block:clamp(64px,10vw,120px)}
+.sec-head{text-align:center;max-width:34ch;margin:0 auto clamp(38px,5.5vw,60px)}
+.sec-head h2{font-size:clamp(34px,5vw,58px);margin-bottom:14px}
+.sec-head p{font-size:16px;color:var(--ink-soft)}
+
+.cards{
+  display:grid;gap:clamp(18px,2.6vw,34px);
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  max-width:680px;margin-inline:auto;
+}
+.card{
+  display:flex;flex-direction:column;background:var(--card);
+  border-radius:3px;overflow:hidden;
+}
+.card-img{aspect-ratio:4/5;background:#cfc9b8}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.card-body{display:flex;flex-direction:column;flex:1;padding:clamp(18px,2.2vw,26px)}
+.card-body h3{font-family:var(--sans);font-size:16px;line-height:1.3;margin-bottom:8px}
+.card-body p{font-size:14px;line-height:1.5;color:var(--ink-soft);margin-bottom:22px}
+.card-foot{
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  margin-top:auto;padding-top:16px;border-top:1px solid var(--rule);
+}
+.card-foot .price{font-size:22px}
+.card-link{font-size:14px;border-bottom:1px solid var(--ink);padding-bottom:2px;transition:color .25s,border-color .25s}
+.card:hover .card-link{color:var(--olive-ink);border-color:var(--olive-ink)}
+
+/* ---------------- footer ---------------- */
+.site-foot{border-top:1px solid var(--rule);padding-block:clamp(30px,4vw,44px)}
+.foot-row{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.foot-nav{display:flex;gap:clamp(22px,3.4vw,52px);font-size:15px}
+.foot-nav a{transition:color .25s}
+.foot-nav a:hover{color:var(--olive-ink)}
+.foot-social{display:flex;gap:18px}
+.foot-social a{
+  display:grid;place-items:center;width:40px;height:40px;
+  border:1px solid var(--rule);border-radius:3px;transition:border-color .25s,color .25s;
+}
+.foot-social a:hover{border-color:var(--olive-ink);color:var(--olive-ink)}
+.foot-social svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.4}
+
+/* ---------------- mobile sticky buy bar ---------------- */
+.buybar{
+  position:fixed;z-index:20;left:12px;right:12px;
+  bottom:calc(12px + env(safe-area-inset-bottom));
+  display:none;align-items:center;justify-content:space-between;gap:14px;
+  padding:12px 12px 12px 24px;background:var(--card);
+  border-radius:999px;box-shadow:0 8px 30px rgba(0,0,0,.14);
+}
+.buybar .price{font-size:28px}
+.buybar .btn{width:auto;min-height:54px;border-radius:999px;padding:0 26px;flex:0 1 auto}
+
+/* ================= desktop ================= */
+@media (min-width:860px){
+  .hero{min-height:clamp(600px,100svh,900px)}
+  .hero-img img{object-position:right center} /* crop the empty gradient, never the product */
+  /* Copy is capped well clear of the product. The narrower the viewport, the
+     more the 16:9 render is cropped from the left, so the product creeps
+     leftward — the vw term keeps the copy ahead of it down to 860px. */
+  .hero-inner{max-width:min(42vw,600px)}
+}
+
+/* ================= mobile / small tablet ================= */
+/* Copy stacks ABOVE the image rather than over it: the product occupies the
+   lower two thirds of the 9:16 render, and the image is wider in ratio than a
+   phone viewport, so a cover-crop leaves no vertical room to push it clear. */
+@media (max-width:859px){
+  /* align-items:center from the base rule would centre-shrink the image
+     on the cross axis once this becomes a column; stretch keeps it edge to edge. */
+  .hero{display:flex;flex-direction:column;align-items:stretch;min-height:0;overflow:visible}
+  .hero-copy{order:-1}  /* copy leads; the image is absolutely placed on desktop */
+  /* The render is 4:5 with the product starting 41% down, so the top third is
+     empty gradient. Anchoring to the bottom and holding the slot at 5:4 crops
+     that dead space away and lifts the product above the fold — the copy block
+     above already supplies the breathing room the gradient was giving. */
+  .hero-img{position:relative;inset:auto;z-index:0;height:auto;aspect-ratio:5/4}
+  .hero-img img{object-position:center bottom}
+  /* Its top edge is #fbeddb against a #f6f4f1 page — close enough that a
+     short fade hides the join completely. */
+  .hero-img::before{
+    content:"";position:absolute;inset:0 0 auto;height:56px;z-index:1;pointer-events:none;
+    background:linear-gradient(to bottom,var(--cream),rgba(246,244,241,0));
+  }
+  .hero-copy{padding-block:clamp(84px,12vh,104px) clamp(22px,3.5vh,32px)}
+  body{padding-bottom:calc(var(--bar-h) + 20px)} /* keep the footer clear of the bar */
+  .lead{max-width:30ch}
+  .features{gap:14px;margin-block:clamp(22px,3.5vh,34px)}
+  .f-ico{height:44px;width:44px;margin-bottom:9px}
+  .feature h2{font-size:13px}
+  .feature p{font-size:12.5px}
+  .buy{display:none}          /* replaced by the sticky bar */
+  .buybar{display:flex}
+  .cards{max-width:520px}
+}
+
+/* Tablet portrait keeps the stacked layout but takes the 16:9 render: a 9:16
+   file in a box this wide and short would crop to an extreme close-up. Matching
+   the box to the file's own ratio means no crop at all. */
+@media (min-width:700px) and (max-width:859px){
+  .hero-img{height:auto;aspect-ratio:16/9}
+  .hero-img img{object-position:right center}
+  .features{max-width:660px}
+}
+
+@media (max-width:520px){
+  .cards{grid-template-columns:minmax(0,1fr);max-width:380px}
+  .foot-row{justify-content:center;text-align:center}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+</style>
 </head>
-
 <body>
 
-  <header class="site-header">
-    <a class="brand" href="/">sitre</a>
+<header class="site-head">
+  <a class="wordmark" href="https://shopsitre.com" aria-label="sitre home">sitre</a>
+  <a class="head-link" href="https://shopsitre.com/products/new-heights">shop now&nbsp;&nbsp;→</a>
+</header>
 
-    <button class="waitlist-link" type="button" data-scroll-waitlist>
-      <span>join waitlist</span>
-    </button>
-  </header>
+<main>
+  <section class="hero">
+    <div class="hero-img">
+      <picture>
+        <source media="(min-width:700px)" type="image/jpeg"
+          srcset="https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Test_Desktop.png?v=1788340661&width=1672&format=jpg 1672w,
+                  https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Test_Desktop.png?v=1788340661&width=2400&format=jpg 2400w">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Test_Mobile.png?v=1788430900&width=1122&format=jpg"
+          srcset="https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Test_Mobile.png?v=1788430900&width=750&format=jpg 750w,
+                  https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Test_Mobile.png?v=1788430900&width=1122&format=jpg 1122w"
+          width="1122" height="1402" fetchpriority="high" decoding="sync"
+          alt="new heights, a sculpted olive silicone form resting on a dark stone in warm light">
+      </picture>
+    </div>
 
+    <div class="hero-copy wrap">
+     <div class="hero-inner">
+      <span class="eyebrow">a new ritual</span>
+      <h1>new heights</h1>
+      <p class="lead">designed to elevate pleasure in more than one way.</p>
 
-  <main class="page-shell">
+      <ul class="features" role="list">
+        <li class="feature">
+          <div class="f-ico" aria-hidden="true"
+               style="--src:url('https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Rumbling_Vibration.png?v=1788251231&width=120&format=png')"></div>
+          <h2>deep resonance</h2>
+          <p>a rumbly vibration engineered for depth rather than sharp intensity.</p>
+        </li>
+        <li class="feature">
+          <div class="f-ico" aria-hidden="true"
+               style="--src:url('https://cdn.shopify.com/s/files/1/0961/1929/2242/files/Smoky_Quartz.png?v=1788251252&width=120&format=png')"></div>
+          <h2>genuine smoky quartz</h2>
+          <p>a real crystal, known for its grounding energy, at its core.</p>
+        </li>
+        <li class="feature">
+          <div class="f-ico" aria-hidden="true"
+               style="--src:url('https://cdn.shopify.com/s/files/1/0961/1929/2242/files/organic_design.png?v=1788251276&width=120&format=png')"></div>
+          <h2>sculpted form</h2>
+          <p>an organic silicone surface designed for versatile contact.</p>
+        </li>
+      </ul>
 
-    <!-- HERO -->
-    <section class="hero" id="hero">
-      <div class="hero__copy" data-reveal>
-        <div class="eyebrow">a new ritual</div>
-
-        <h1 class="display">new heights</h1>
-
-        <p class="hero__sub">
-          A sculptural self-care object
-          made to be experienced differently.
-        </p>
-
-        <button class="button" type="button" data-scroll-waitlist>
-          Join the waitlist
-        </button>
+      <div class="buy">
+        <span class="price">1.050 kr</span>
+        <a class="btn" href="https://shopsitre.com/products/new-heights">
+          shop now <span class="arw" aria-hidden="true">→</span>
+        </a>
       </div>
+     </div>
+    </div>
+  </section>
 
-      <div class="hero__media media" aria-hidden="true">
-        <div class="media__ghost"></div>
-      </div>
-    </section>
+  <section class="ritual wrap">
+    <div class="sec-head">
+      <h2>complete the ritual</h2>
+      <p>water-based and safe with toys — made to pair with new heights.</p>
+    </div>
 
-
-    <!-- FOUNDER QUOTE -->
-    <section class="quote" data-reveal>
-      <div>
-        <blockquote>
-          “we created new heights to bring more intention,
-          beauty, and presence into modern ritual.”
-        </blockquote>
-
-        <cite>— julie, co-founder</cite>
-      </div>
-    </section>
-
-
-    <!-- DEEP RESONANCE -->
-    <section class="story">
-      <div class="story__media media media--dark" aria-hidden="true"></div>
-
-      <div class="story__copy" data-reveal>
-        <div class="eyebrow">feel the depth</div>
-
-        <h2 class="display">deep resonance</h2>
-
-        <p>
-          engineered for depth, new heights delivers a low-frequency
-          resonant experience designed to feel grounding, quiet,
-          and immersive.
-        </p>
-
-        <p class="story__signoff">
-          calm. centered. considered.
-        </p>
-      </div>
-    </section>
-
-
-    <!-- SMOKY QUARTZ -->
-    <section class="story story--reverse">
-      <div class="story__copy" data-reveal>
-        <div class="eyebrow">at its core</div>
-
-        <h2 class="display">genuine smoky quartz</h2>
-
-        <p>
-          crafted with genuine smoky quartz, chosen for its
-          natural beauty and distinctive cool-touch presence.
-        </p>
-
-        <p class="story__signoff">
-          natural material.<br>
-          refined in your ritual.
-        </p>
-      </div>
-
-      <div class="story__media media media--warm" aria-hidden="true"></div>
-    </section>
-
-
-    <!-- SCULPTED FOR BODY -->
-    <section class="story">
-      <div class="story__media media media--dark" aria-hidden="true"></div>
-
-      <div class="story__copy" data-reveal>
-        <div class="eyebrow">designed to feel</div>
-
-        <h2 class="display">sculpted for the body</h2>
-
-        <p>
-          an ergonomic, low-profile silhouette designed around
-          balance, touch and intuitive movement.
-        </p>
-
-        <div class="form-points">
-          <div class="form-point">
-            <div class="form-point__icon">
-              <svg viewBox="0 0 64 32" aria-hidden="true">
-                <path
-                  d="M8 21C18 7 36 7 55 13C42 15 31 18 24 26"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.4"
-                />
-              </svg>
-            </div>
-
-            <strong>edge</strong>
-            <span>curved for intuitive placement.</span>
-          </div>
-
-          <div class="form-point">
-            <div class="form-point__icon">
-              <svg viewBox="0 0 64 32" aria-hidden="true">
-                <path
-                  d="M7 16C16 8 28 10 34 13C42 17 50 16 57 11"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.4"
-                />
-              </svg>
-            </div>
-
-            <strong>surface</strong>
-            <span>soft-touch silicone finish.</span>
-          </div>
-
-          <div class="form-point">
-            <div class="form-point__icon">
-              <svg viewBox="0 0 64 32" aria-hidden="true">
-                <ellipse
-                  cx="32"
-                  cy="17"
-                  rx="18"
-                  ry="6"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.4"
-                />
-                <ellipse
-                  cx="32"
-                  cy="12"
-                  rx="10"
-                  ry="4"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.4"
-                />
-              </svg>
-            </div>
-
-            <strong>form</strong>
-            <span>weighted and contoured for balance.</span>
+    <div class="cards">
+      <article class="card">
+        <a class="card-img" href="https://shopsitre.com/products/sitre-gel-high-quality-lube" tabindex="-1" aria-hidden="true">
+          <img loading="lazy" decoding="async" width="1403" height="1754"
+               src="https://cdn.shopify.com/s/files/1/0961/1929/2242/files/SITRE02.jpg?v=1755715530&width=800&format=jpg"
+               srcset="https://cdn.shopify.com/s/files/1/0961/1929/2242/files/SITRE02.jpg?v=1755715530&width=560&format=jpg 560w,
+                       https://cdn.shopify.com/s/files/1/0961/1929/2242/files/SITRE02.jpg?v=1755715530&width=900&format=jpg 900w"
+               sizes="(min-width:860px) 430px, 90vw"
+               alt="soft wave water-based gel in an olive pump bottle">
+        </a>
+        <div class="card-body">
+          <h3>soft wave&nbsp; | &nbsp;water-based gel&nbsp; | &nbsp;130 ml</h3>
+          <p>a water-based gel with 21% organic aloe vera that stays moist for longer.</p>
+          <div class="card-foot">
+            <span class="price">270 kr</span>
+            <a class="card-link" href="https://shopsitre.com/products/sitre-gel-high-quality-lube">
+              shop&nbsp; →<span class="sr-only"> soft wave</span>
+            </a>
           </div>
         </div>
-      </div>
-    </section>
+      </article>
 
-
-    <!-- MANIFESTO -->
-    <section class="manifesto" data-reveal>
-      <p>
-        “a ritual object designed<br>
-        to bring you back to yourself.”
-      </p>
-    </section>
-
-
-    <!-- COMING SOON REVEAL -->
-    <section class="reveal">
-      <div class="reveal__media media media--warm" aria-hidden="true"></div>
-
-      <div class="reveal__copy" data-reveal>
-        <div class="eyebrow">coming soon</div>
-
-        <h2 class="display">new heights</h2>
-
-        <p class="reveal__intro">
-          a new standard in modern self-care.<br>
-          beautifully crafted. consciously considered.<br>
-          coming soon.
-        </p>
-
-        <div class="benefits">
-          <div class="benefit">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3c-2 4-6 5-6 10a6 6 0 0 0 12 0c0-5-4-6-6-10Z"/>
-            </svg>
-
-            <span>thoughtfully designed for modern ritual</span>
-          </div>
-
-          <div class="benefit">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="m12 3 7 6-7 12L5 9Z"/>
-              <path d="m5 9 7 3 7-3"/>
-            </svg>
-
-            <span>crafted with genuine smoky quartz</span>
-          </div>
-
-          <div class="benefit">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6Z"/>
-            </svg>
-
-            <span>silicone, abs and genuine smoky quartz</span>
+      <article class="card">
+        <a class="card-img" href="https://shopsitre.com/products/oil-booster" tabindex="-1" aria-hidden="true">
+          <img loading="lazy" decoding="async" width="3976" height="4970"
+               src="https://cdn.shopify.com/s/files/1/0961/1929/2242/files/SITRE08.jpg?v=1755715792&width=800&format=jpg"
+               srcset="https://cdn.shopify.com/s/files/1/0961/1929/2242/files/SITRE08.jpg?v=1755715792&width=560&format=jpg 560w,
+                       https://cdn.shopify.com/s/files/1/0961/1929/2242/files/SITRE08.jpg?v=1755715792&width=900&format=jpg 900w"
+               sizes="(min-width:860px) 430px, 90vw"
+               alt="booster intimacy oil in an olive glass bottle on a terracotta block">
+        </a>
+        <div class="card-body">
+          <h3>booster&nbsp; | &nbsp;intimacy oil&nbsp; | &nbsp;100 ml</h3>
+          <p>an intimacy oil that heightens sensitivity and turns massage into something more.</p>
+          <div class="card-foot">
+            <span class="price">440 kr</span>
+            <a class="card-link" href="https://shopsitre.com/products/oil-booster">
+              shop&nbsp; →<span class="sr-only"> booster</span>
+            </a>
           </div>
         </div>
+      </article>
+    </div>
+  </section>
+</main>
 
-        <button class="button" type="button" data-scroll-waitlist>
-          be first to experience new heights
-        </button>
-
-        <div class="small-note">
-          join the waitlist for early access.
-        </div>
-      </div>
-    </section>
-
-
-    <!-- SITRE RITUAL -->
-    <section class="ritual" data-reveal>
-      <div>
-        <div class="eyebrow">the sitre ritual</div>
-
-        <h3>discover the ritual</h3>
-
-        <p>
-          explore more elevated essentials designed
-          for intentional daily routines.
-        </p>
-      </div>
-
-      <div class="ritual__media media" aria-hidden="true"></div>
-
-      <a class="ritual__link" href="/collections/all">
-        Discover more <span>→</span>
-      </a>
-    </section>
-
-
-    <!-- DETAILS -->
-    <section class="details">
-      <h3>details</h3>
-
-      <div class="details__grid">
-        <details>
-          <summary>
-            <span>materials &amp; care</span>
-            <span class="plus"></span>
-          </summary>
-
-          <div class="details__content">
-            silicone, abs and genuine smoky quartz.
-            ipx7 rated and phthalate-free.
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span>care &amp; use</span>
-            <span class="plus"></span>
-          </summary>
-
-          <div class="details__content">
-            five settings, magnetic usb charging,
-            approximately one hour charge time and approximately
-            one hour runtime.
-          </div>
-        </details>
-
-        <details>
-          <summary>
-            <span>shipping &amp; returns</span>
-            <span class="plus"></span>
-          </summary>
-
-          <div class="details__content">
-            shipping and return terms follow sitre's
-            current store policies.
-          </div>
-        </details>
-      </div>
-    </section>
-
-
-    <!-- WAITLIST -->
-    <section class="waitlist" id="waitlist">
-      <div class="waitlist__inner" data-reveal>
-        <div class="eyebrow">
-          New Heights · Coming soon
-        </div>
-
-        <h2 class="display">
-          be first to experience<br>
-          New Heights
-        </h2>
-
-        <p>
-          join the list for launch access,
-          product updates and first availability.
-        </p>
-
-        <form
-          class="signup"
-          id="signup"
-          method="post"
-          action="/contact#new-heights-signup"
-        >
-          <input type="hidden" name="form_type" value="customer">
-          <input type="hidden" name="utf8" value="✓">
-          <input
-            type="hidden"
-            name="contact[tags]"
-            value="newsletter,new-heights-waitlist,new-heights-prelaunch"
-          >
-
-          <input
-            type="email"
-            name="contact[email]"
-            autocomplete="email"
-            inputmode="email"
-            placeholder="your email address"
-            aria-label="Email address"
-            required
-          >
-
-          <button type="submit">
-            Join the waitlist
-          </button>
-        </form>
-
-        <div
-          class="form-message"
-          id="form-message"
-          aria-live="polite"
-        ></div>
-      </div>
-    </section>
-
-  </main>
-
-
-  <!-- MOBILE STICKY CTA -->
-  <div class="mobile-cta" id="mobile-cta" aria-hidden="true">
-    <button type="button" data-scroll-waitlist>
-      Join the New Heights waitlist
-    </button>
-  </div>
-
-
-  <footer>
-    <a class="brand" href="/">sitre</a>
-
-    <nav>
-      <a href="/pages/about">about</a>
-      <a href="/blogs/journal">journal</a>
-      <a href="/pages/contact">contact</a>
+<footer class="site-foot wrap">
+  <div class="foot-row">
+    <a class="wordmark" href="https://shopsitre.com" aria-label="sitre home">sitre</a>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="https://shopsitre.com/pages/about">about</a>
+      <a href="https://shopsitre.com/pages/contact">contact</a>
     </nav>
+    <div class="foot-social">
+      <a href="https://www.instagram.com/sitre/" aria-label="sitre on Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://shopsitre.com/pages/contact" aria-label="Contact sitre">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg>
+      </a>
+      <a href="https://shopsitre.com/cart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9.2 8V6.4a2.8 2.8 0 0 1 5.6 0V8"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
 
-    <small>
-      © <span id="year"></span> sitre
-    </small>
-  </footer>
+<div class="buybar" role="group" aria-label="Buy new heights">
+  <span class="price">1.050 kr</span>
+  <a class="btn" href="https://shopsitre.com/products/new-heights">
+    shop now <span class="arw" aria-hidden="true">→</span>
+  </a>
+</div>
 
-
-  <script>
-    (() => {
-      "use strict";
-
-      document.getElementById("year").textContent =
-        new Date().getFullYear();
-
-      const hero = document.getElementById("hero");
-      const waitlist = document.getElementById("waitlist");
-      const signup = document.getElementById("signup");
-      const email = signup.querySelector('input[type="email"]');
-      const formMessage = document.getElementById("form-message");
-      const mobileCTA = document.getElementById("mobile-cta");
-
-      const scrollToWaitlist = () => {
-        waitlist.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-
-        window.setTimeout(() => {
-          email.focus({ preventScroll: true });
-        }, 650);
-      };
-
-      document
-        .querySelectorAll("[data-scroll-waitlist]")
-        .forEach((button) => {
-          button.addEventListener("click", scrollToWaitlist);
-        });
-
-      /* Entrance animations */
-      const reveals = document.querySelectorAll("[data-reveal]");
-
-      if (
-        "IntersectionObserver" in window &&
-        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ) {
-        const revealObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (!entry.isIntersecting) return;
-
-              entry.target.classList.add("is-visible");
-              revealObserver.unobserve(entry.target);
-            });
-          },
-          {
-            threshold: 0.12,
-            rootMargin: "0px 0px -6% 0px"
-          }
-        );
-
-        reveals.forEach((el) => revealObserver.observe(el));
-      } else {
-        reveals.forEach((el) => el.classList.add("is-visible"));
-      }
-
-      document
-        .querySelector(".hero__copy")
-        ?.classList.add("is-visible");
-
-      /* Mobile sticky CTA:
-         - appears after hero
-         - disappears when waitlist is on screen */
-      if (window.matchMedia("(max-width: 680px)").matches) {
-        let pastHero = false;
-        let waitlistVisible = false;
-
-        const syncStickyCTA = () => {
-          const show = pastHero && !waitlistVisible;
-
-          mobileCTA.classList.toggle("is-visible", show);
-          mobileCTA.setAttribute(
-            "aria-hidden",
-            show ? "false" : "true"
-          );
-        };
-
-        const heroObserver = new IntersectionObserver(
-          ([entry]) => {
-            pastHero = !entry.isIntersecting;
-            syncStickyCTA();
-          },
-          {
-            threshold: 0.05
-          }
-        );
-
-        const waitlistObserver = new IntersectionObserver(
-          ([entry]) => {
-            waitlistVisible = entry.isIntersecting;
-            syncStickyCTA();
-          },
-          {
-            threshold: 0.05
-          }
-        );
-
-        heroObserver.observe(hero);
-        waitlistObserver.observe(waitlist);
-      }
-
-      /* Local preview behavior.
-         On Sitre/Shopify the form posts normally. */
-      if (location.protocol === "file:") {
-        signup.addEventListener("submit", (event) => {
-          event.preventDefault();
-
-          if (!email.checkValidity()) {
-            formMessage.textContent =
-              "please enter a valid email address.";
-
-            email.focus();
-            return;
-          }
-
-          formMessage.textContent =
-            "preview mode: the waitlist form is ready for shopify deployment.";
-        });
-      }
-    })();
-  </script>
-
+<style>
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+</style>
 </body>
 </html>
