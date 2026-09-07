@@ -205,15 +205,15 @@ h1,h2,h3,.serif{font-family:var(--serif);font-weight:400;line-height:1.02;letter
 .foot-social svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.4}
 
 /* ---------------- mobile sticky buy bar ---------------- */
+/* The bar now carries only the CTA, so the cream container is gone — nesting a
+   pill button inside a pill container would read as two competing shapes. The
+   button is the bar, and takes the elevation the container used to carry. */
 .buybar{
-  position:fixed;z-index:20;left:12px;right:12px;
-  bottom:calc(12px + env(safe-area-inset-bottom));
-  display:none;align-items:center;justify-content:space-between;gap:14px;
-  padding:12px 12px 12px 24px;background:var(--card);
-  border-radius:999px;box-shadow:0 8px 30px rgba(0,0,0,.14);
+  position:fixed;z-index:20;left:16px;right:16px;
+  bottom:calc(16px + env(safe-area-inset-bottom));
+  display:none;
 }
-.buybar .price{font-size:28px}
-.buybar .btn{width:auto;min-height:54px;border-radius:999px;padding:0 26px;flex:0 1 auto}
+.buybar .btn{width:100%;min-height:58px;border-radius:999px;box-shadow:0 8px 30px rgba(0,0,0,.18)}
 
 /* ================= desktop ================= */
 @media (min-width:860px){
@@ -327,7 +327,6 @@ h1,h2,h3,.serif{font-family:var(--serif);font-weight:400;line-height:1.02;letter
       </ul>
 
       <div class="buy">
-        <span class="price">1.050 kr</span>
         <a class="btn" href="https://shopsitre.com/products/new-heights">
           shop now <span class="arw" aria-hidden="true">→</span>
         </a>
@@ -409,8 +408,7 @@ h1,h2,h3,.serif{font-family:var(--serif);font-weight:400;line-height:1.02;letter
   </div>
 </footer>
 
-<div class="buybar" role="group" aria-label="Buy new heights">
-  <span class="price">1.050 kr</span>
+<div class="buybar">
   <a class="btn" href="https://shopsitre.com/products/new-heights">
     shop now <span class="arw" aria-hidden="true">→</span>
   </a>
